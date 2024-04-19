@@ -8,7 +8,7 @@ import 'Account_page.dart';
 
 
 class UI extends StatefulWidget {
-  UI(this.page);
+  UI(this.page, {super.key});
   Widget page;
   @override
   _UIState createState() => _UIState(page);
@@ -25,10 +25,10 @@ class _UIState extends State<UI> {
 @override
 void initState() {
   pages = [
-    TimelinePage(),
-    SearchPage(),
-    PostPage(),
-    AccountPage(),
+    const TimelinePage(),
+    const SearchPage(),
+    const PostPage(),
+    const AccountPage(),
   ];
   super.initState();
 }
@@ -51,13 +51,13 @@ void initState() {
               // ログイン画面に遷移＋チャット画面を破棄
               await Navigator.of(context).pushReplacement(
                 MaterialPageRoute(builder: (context) {
-                  return StartPage();
+                  return const StartPage();
                 }),
               );
             }
             else {
               setState(() {
-              page=AccountPage();
+              page=const AccountPage();
               _color=Colors.red;
               _icon=Icons.logout;
               _currentIndex=3;
@@ -67,7 +67,7 @@ void initState() {
           icon: Icon(_icon),
         ),
         // タイトルテキスト
-        title: Text(
+        title: const Text(
           'Thoughts',
           style: TextStyle(
             fontWeight: FontWeight.bold,
@@ -79,7 +79,7 @@ void initState() {
         actions: <Widget>[
           IconButton(
             onPressed: () {},
-            icon: Icon(Icons.notifications_none),
+            icon: const Icon(Icons.notifications_none),
           ),
         ],
       ),
@@ -104,7 +104,7 @@ void initState() {
             }
           });
         },
-        items: [
+        items: const [
           BottomNavigationBarItem(
             icon: Icon(Icons.calendar_today),
             label:'timeline',

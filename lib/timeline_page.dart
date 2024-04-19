@@ -20,6 +20,7 @@ final List<String> genres = [
   'アニメ',
   'ゲーム',
 ];
+
 // ダミーの作品名リスト
 final List<String> sakuhinNames = [
   'Re:ゼロから始める異世界生活',
@@ -77,7 +78,7 @@ IconData getIconForGenre(String genre) {
     case 'ゲーム':
       return Icons.sports_esports;
     default:
-      return Icons.device_unknown; // デフォルトのアイコン
+      return Icons.device_unknown;
   }
 }
 
@@ -87,7 +88,7 @@ Color getColorForScore(String scoreString) {
   int score = int.tryParse(scoreString) ?? 0;
 
   if (score >= 90 && score <= 100) {
-    return Color(0xFFFFD700); // 金色
+    return const Color(0xFFFFD700); // 金色
   } else if (score >= 80 && score <= 89) {
     return Colors.red; // 赤色
   } else if (score >= 60 && score <= 79) {
@@ -103,20 +104,20 @@ Widget modelToWidget(Tweet model) {
   final obi = Row(
     children: [
       Container(
-        padding: EdgeInsets.all(1), // 枠とアイコンの間のスペース
+        padding: const EdgeInsets.all(1), // 枠とアイコンの間のスペース
         decoration: BoxDecoration(
           shape: BoxShape.circle, // 枠の形状を円形にする
           border: Border.all(
             color: Colors.grey, // 枠線の色を灰色にする
-            width: 1.0, // 枠線の幅を2.0にする
+            width: 1.0, // 枠線の幅を1.0にする
           ),
         ),
-        child: CircleAvatar(
+        child: const CircleAvatar(
           radius: 14, // アイコンのサイズを設定
           backgroundImage: NetworkImage('ユーザーの画像URL'), // ユーザーの画像を表示
         ),
       ),
-      SizedBox(width: 8),
+      const SizedBox(width: 8),
       Expanded(
         child: Text(
           model.userName,
@@ -156,7 +157,7 @@ Widget modelToWidget(Tweet model) {
             fontSize: 12,
             color: Colors.white), // 文字色を白に設定
       ),
-      SizedBox(height: 8), // 作品名とスコアの間に8ピクセルの余白を追加
+      const SizedBox(height: 8), // 作品名とスコアの間に8ピクセルの余白を追加
       Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
@@ -172,7 +173,7 @@ Widget modelToWidget(Tweet model) {
               mainAxisSize: MainAxisSize.min, // 必要最小限の幅を使用
               children: [
                 Text(
-                  '${model.score}', // スコアの値
+                  model.score, // スコアの値
                   style: TextStyle(
                     color: getColorForScore(model.score), // スコアに応じた色
                     fontSize: 18,
@@ -180,7 +181,7 @@ Widget modelToWidget(Tweet model) {
                   ),
                 ),
                 // "点"表示（白色で少し小さな文字サイズ）
-                Text(
+                const Text(
                   '点',
                   style: TextStyle(
                     color: Colors.white, // 白色を指定
@@ -215,14 +216,14 @@ Widget modelToWidget(Tweet model) {
 }
 
 class TimelinePage extends StatelessWidget {
-  TimelinePage({super.key});
+  const TimelinePage({super.key});
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.black, // Scaffoldの背景色を黒に設定
       body: GridView.builder(
         padding: const EdgeInsets.symmetric(horizontal: 5), // 左右に5ピクセルの余白を追加
-        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
           crossAxisCount: 2, // 一行に表示するアイテムの数
           crossAxisSpacing: 0, // アイテム間の水平スペース
           mainAxisSpacing: 0, // アイテム間の垂直スペース

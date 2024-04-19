@@ -13,7 +13,7 @@ final searchStateNotifireProvider =
 
 // キーワードで映画を検索するメソッドが使えるStateNotifier.
 class SearchStateNotifire extends StateNotifier<dynamic> {
-  Ref _ref;
+  final Ref _ref;
   SearchStateNotifire(this._ref) : super([]);
 
   // .whereでstring_id_arrayを検索して、候補を表示する

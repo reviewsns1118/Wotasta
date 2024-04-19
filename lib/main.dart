@@ -12,19 +12,23 @@ Future<void> main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-//
+
   runApp(
-    ProviderScope(
+    const ProviderScope(
       child: MyApp(),
     ),
   );
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
+  const MyApp({super.key});
   @override
   Widget build(BuildContext context) => MaterialApp(
-        title: 'Flutter app',
+        theme: ThemeData(
+          // Materialデザインのバージョンを設定
+          useMaterial3: false,
+        ),
+        title: 'Wotastagram',
         home: StreamBuilder<User?>(
           stream: FirebaseAuth.instance.authStateChanges(),
           builder: (context, snapshot) {
@@ -34,10 +38,10 @@ class MyApp extends StatelessWidget {
             }
             if (snapshot.hasData) {
               // User が null でなない、つまりサインイン済みのホーム画面へ
-              return UI(TimelinePage());
+              return UI(const TimelinePage());
             }
             // User が null である、つまり未サインインのサインイン画面へ
-            return StartPage();
+            return const StartPage();
           },
         ),
       );

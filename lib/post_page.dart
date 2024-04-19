@@ -1,4 +1,3 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'writepost.dart';
@@ -7,7 +6,7 @@ import 'searchwork.dart';
 
 
 class PostPage extends ConsumerWidget {
-  const PostPage({Key? key}) : super(key: key);
+  const PostPage({super.key});
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     // ListView.builderのitemCountで使用するListのProviderを呼び出す.
@@ -20,16 +19,16 @@ class PostPage extends ConsumerWidget {
         children: [
           
           Padding(
-            padding: EdgeInsets.symmetric(
+            padding: const EdgeInsets.symmetric(
               vertical: 12,
               horizontal: 36,
             ),
             child: TextField(
-              style: TextStyle(
+              style: const TextStyle(
                 fontSize:18,
                 color: Colors.white, 
               ),
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                 fillColor: Colors.white,
                 hintText: '作品を検索'
                ),
@@ -50,7 +49,7 @@ class PostPage extends ConsumerWidget {
                   ),
                   title: Text(
                     result[index]['title'].toString(),
-                    style: TextStyle(color: Colors.white),
+                    style: const TextStyle(color: Colors.white),
                   ),
                   onTap: (){
                     Navigator.push(
@@ -62,13 +61,13 @@ class PostPage extends ConsumerWidget {
               },
             ),
           ),
-          Text(
+          const Text(
             "作品が見つからない時は、ここから追加",
             style: TextStyle(
               color: Colors.white
             ),
           ),
-          Text("↓",
+          const Text("↓",
             style: TextStyle(
               color: Colors.white
             ),
@@ -81,10 +80,10 @@ class PostPage extends ConsumerWidget {
             onPressed: (){
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => Add()),
+                MaterialPageRoute(builder: (context) => const Add()),
               );
             }, 
-            child: Text("作品を追加")
+            child: const Text("作品を追加")
           )
         ],
       ),

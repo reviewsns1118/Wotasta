@@ -1,11 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
-import 'package:flutter/services.dart';
 
 class WritePost extends StatefulWidget {
-  WritePost(this.document);
+  WritePost(this.document, {super.key});
   Map<String, dynamic>? document;
 
   @override
@@ -36,7 +33,7 @@ class _WritePostState extends State<WritePost> {
         backgroundColor: Colors.black,
         foregroundColor: Colors.white,
         // タイトルテキスト
-        title: Text(
+        title: const Text(
           'Thoughts',
           style: TextStyle(
             fontWeight: FontWeight.bold,
@@ -63,13 +60,13 @@ class _WritePostState extends State<WritePost> {
                 ),
                 Text(
                   document!["title"],
-                  style: TextStyle(color: Colors.white),
+                  style: const TextStyle(color: Colors.white),
                 )
               ]),
             ),
             TextField(
               keyboardType: TextInputType.number,
-              style: TextStyle(
+              style: const TextStyle(
                 fontSize: 18,
                 color: Colors.white,
               ),
@@ -103,11 +100,11 @@ class _WritePostState extends State<WritePost> {
             TextField(
               keyboardType: TextInputType.multiline,
               maxLines: null,
-              style: TextStyle(
+              style: const TextStyle(
                 fontSize: 18,
                 color: Colors.white,
               ),
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                 fillColor: Colors.white,
                 hintText: '感想を書く',
               ),
@@ -139,7 +136,7 @@ class _WritePostState extends State<WritePost> {
                   },
                   checkColor: Colors.blue,
                 ),
-                Text(
+                const Text(
                   "ネタバレ注意",
                   style: TextStyle(color: Colors.white),
                 ),
@@ -150,13 +147,13 @@ class _WritePostState extends State<WritePost> {
                   },
                   checkColor: Colors.blue,
                 ),
-                Text(
+                const Text(
                   "最後まで見た",
                   style: TextStyle(color: Colors.white),
                 ),
               ],
             ),
-            Text(
+            const Text(
               "上位のタグ",
               style: TextStyle(color: Colors.white),
             ),

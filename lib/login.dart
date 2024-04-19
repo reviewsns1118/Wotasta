@@ -1,14 +1,13 @@
-import 'dart:developer';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:wotastagram/UI.dart';
-import 'main.dart';
 import 'timeline_page.dart';
 
 class StartPage extends StatelessWidget {
+  const StartPage({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -31,7 +30,7 @@ class StartPage extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              Container(
+              SizedBox(
                 width: 200,
                 // ユーザー登録ボタン
                 child: ElevatedButton(
@@ -39,7 +38,7 @@ class StartPage extends StatelessWidget {
                     backgroundColor: Colors.blue,
                     foregroundColor: Colors.white,
                   ),
-                  child: Text('ユーザー登録'),
+                  child: const Text('ユーザー登録'),
                   onPressed: () async {
                     Navigator.push(
                       context,
@@ -49,7 +48,7 @@ class StartPage extends StatelessWidget {
                 ),
               ),
               const SizedBox(height: 8),
-              Container(
+              SizedBox(
                 width: 200,
                 // ログイン登録ボタン
                 child: ElevatedButton(
@@ -57,7 +56,7 @@ class StartPage extends StatelessWidget {
                     backgroundColor: Colors.white,
                     foregroundColor: Colors.black,
                   ),
-                  child: Text('ログイン'),
+                  child: const Text('ログイン'),
                   onPressed: () async {
                     Navigator.push(
                       context,
@@ -84,6 +83,8 @@ class RegisterPage extends StatelessWidget {
   String password = '';
   CollectionReference users = FirebaseFirestore.instance.collection('users');
 
+  RegisterPage({super.key});
+
 
 
   @override
@@ -108,7 +109,7 @@ class RegisterPage extends StatelessWidget {
                 style: const TextStyle(
                   color: Colors.white,
                 ),
-                decoration: InputDecoration(labelText: 'ニックネーム'),
+                decoration: const InputDecoration(labelText: 'ニックネーム'),
                 onChanged: (String value) {
                   nickname=value;
                 },
@@ -123,7 +124,7 @@ class RegisterPage extends StatelessWidget {
                 style: const TextStyle(
                   color: Colors.white,
                 ),
-                decoration: InputDecoration(labelText: 'ユーザーID'),
+                decoration: const InputDecoration(labelText: 'ユーザーID'),
                 onChanged: (String value) {
                   userid=value;
                 },
@@ -133,7 +134,7 @@ class RegisterPage extends StatelessWidget {
                 style: const TextStyle(
                   color: Colors.white,
                 ),
-                decoration: InputDecoration(labelText: 'メールアドレス'),
+                decoration: const InputDecoration(labelText: 'メールアドレス'),
                 onChanged: (String value) {
                   email=value;
                 },
@@ -143,18 +144,18 @@ class RegisterPage extends StatelessWidget {
                 style: const TextStyle(
                   color: Colors.white,
                 ),
-                decoration: InputDecoration(labelText: 'パスワード'),
+                decoration: const InputDecoration(labelText: 'パスワード'),
                 obscureText: true,
                 onChanged: (String value) {
                   password=value;
                 },
               ),
               Container(
-                padding: EdgeInsets.all(8),
+                padding: const EdgeInsets.all(8),
                 // メッセージ表示
                 child: Text(infoText),
               ),
-              Container(
+              SizedBox(
                 width: double.infinity,
                 // ユーザー登録ボタン
                 child: ElevatedButton(
@@ -162,7 +163,7 @@ class RegisterPage extends StatelessWidget {
                     backgroundColor: Colors.blue,
                     foregroundColor: Colors.white,
                   ),
-                  child: Text('登録'),
+                  child: const Text('登録'),
                   onPressed: () async {
                     try {
                       // メール/パスワードでユーザー登録
@@ -182,7 +183,7 @@ class RegisterPage extends StatelessWidget {
                       // チャット画面に遷移＋ログイン画面を破棄
                       await Navigator.of(context).pushReplacement(
                         MaterialPageRoute(builder: (context) {
-                          return UI(TimelinePage());
+                          return UI(const TimelinePage());
                         }),
                       );
                     } catch (e) {
@@ -208,6 +209,8 @@ class LoginPage extends StatelessWidget {
   String email = '';
   String password = '';
 
+  LoginPage({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -230,7 +233,7 @@ class LoginPage extends StatelessWidget {
                 style: const TextStyle(
                   color: Colors.white,
                 ),
-                decoration: InputDecoration(labelText: 'メールアドレス'),
+                decoration: const InputDecoration(labelText: 'メールアドレス'),
                 onChanged: (String value) {
                   email=value;
                 },
@@ -240,18 +243,18 @@ class LoginPage extends StatelessWidget {
                 style: const TextStyle(
                   color: Colors.white,
                 ),
-                decoration: InputDecoration(labelText: 'パスワード'),
+                decoration: const InputDecoration(labelText: 'パスワード'),
                 obscureText: true,
                 onChanged: (String value) {
                   password=value;
                 },
               ),
               Container(
-                padding: EdgeInsets.all(8),
+                padding: const EdgeInsets.all(8),
                 // メッセージ表示
                 child: Text(infoText),
               ),
-              Container(
+              SizedBox(
                 width: double.infinity,
                 // ログイン登録ボタン
                 child: ElevatedButton(
@@ -259,7 +262,7 @@ class LoginPage extends StatelessWidget {
                     backgroundColor: Colors.blue,
                     foregroundColor: Colors.white,
                   ),
-                  child: Text('ログイン'),
+                  child: const Text('ログイン'),
                   onPressed: () async {
                     try {
                       // メール/パスワードでログイン
@@ -272,7 +275,7 @@ class LoginPage extends StatelessWidget {
                       // チャット画面に遷移＋ログイン画面を破棄
                       await Navigator.of(context).pushReplacement(
                         MaterialPageRoute(builder: (context) {
-                          return UI(TimelinePage());
+                          return UI(const TimelinePage());
                         }),
                       );
                     } catch (e) {
