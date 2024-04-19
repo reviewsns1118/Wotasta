@@ -13,15 +13,16 @@ final searchStateNotifireProvider =
 
 // キーワードで映画を検索するメソッドが使えるStateNotifier.
 class SearchStateNotifire extends StateNotifier<dynamic> {
-  final Ref _ref;
+  Ref _ref;
   SearchStateNotifire(this._ref) : super([]);
 
   // .whereでstring_id_arrayを検索して、候補を表示する
-  Future<void> searchWhere(String query) async {
+  Future<void> searchWhere(String query, String col, String fie) async {
     final result = await FirebaseFirestore.instance
-        .collection('works')
-        .where('titleOption', arrayContains: query)
+        .collection(col)
+        .where(fie, arrayContains: query)
         .get();
+    print(result.docs.map((e) => e.data()).toList()[0]["docid"] + "あいうえお");
     // リストに、検索して取得したデータを保存する.
     _ref.watch(searchResultProvider.notifier).state =
         result.docs.map((e) => e.data()).toList();

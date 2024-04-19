@@ -1,13 +1,14 @@
+import 'dart:developer';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:wotastagram/UI.dart';
+import 'main.dart';
 import 'timeline_page.dart';
 
 class StartPage extends StatelessWidget {
-  const StartPage({super.key});
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -30,7 +31,7 @@ class StartPage extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              SizedBox(
+              Container(
                 width: 200,
                 // ユーザー登録ボタン
                 child: ElevatedButton(
@@ -38,7 +39,7 @@ class StartPage extends StatelessWidget {
                     backgroundColor: Colors.blue,
                     foregroundColor: Colors.white,
                   ),
-                  child: const Text('ユーザー登録'),
+                  child: Text('ユーザー登録'),
                   onPressed: () async {
                     Navigator.push(
                       context,
@@ -48,7 +49,7 @@ class StartPage extends StatelessWidget {
                 ),
               ),
               const SizedBox(height: 8),
-              SizedBox(
+              Container(
                 width: 200,
                 // ログイン登録ボタン
                 child: ElevatedButton(
@@ -56,7 +57,7 @@ class StartPage extends StatelessWidget {
                     backgroundColor: Colors.white,
                     foregroundColor: Colors.black,
                   ),
-                  child: const Text('ログイン'),
+                  child: Text('ログイン'),
                   onPressed: () async {
                     Navigator.push(
                       context,
@@ -64,7 +65,33 @@ class StartPage extends StatelessWidget {
                     );
                   },
                 ),
-              )
+              ),
+              const SizedBox(height: 8),
+              Container(
+                width: 200,
+                // ユーザー登録ボタン
+                child: ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.pink,
+                    foregroundColor: Colors.white,
+                  ),
+                  child: Text('developerlogin'),
+                  onPressed: () async {
+                    final FirebaseAuth auth = FirebaseAuth.instance;
+                    await auth.signInWithEmailAndPassword(
+                      email: "reviewsns1118@gmail.com",
+                      password: "Reiji_saikou",
+                    );
+                    // ログインに成功した場合
+                    // チャット画面に遷移＋ログイン画面を破棄
+                    await Navigator.of(context).pushReplacement(
+                      MaterialPageRoute(builder: (context) {
+                        return UI(TimelinePage());
+                      }),
+                    );
+                  },
+                ),
+              ),
             ],
           ),
         ),
@@ -82,10 +109,6 @@ class RegisterPage extends StatelessWidget {
   String email = '';
   String password = '';
   CollectionReference users = FirebaseFirestore.instance.collection('users');
-
-  RegisterPage({super.key});
-
-
 
   @override
   Widget build(BuildContext context) {
@@ -109,24 +132,22 @@ class RegisterPage extends StatelessWidget {
                 style: const TextStyle(
                   color: Colors.white,
                 ),
-                decoration: const InputDecoration(labelText: 'ニックネーム'),
+                decoration: InputDecoration(labelText: 'ニックネーム'),
                 onChanged: (String value) {
-                  nickname=value;
+                  nickname = value;
                 },
               ),
               //ユーザーID入力
               TextFormField(
                 inputFormatters: [
-                  FilteringTextInputFormatter.allow(
-                    RegExp(r'[a-z0-9]')
-                  ),
+                  FilteringTextInputFormatter.allow(RegExp(r'[a-z0-9]')),
                 ],
                 style: const TextStyle(
                   color: Colors.white,
                 ),
-                decoration: const InputDecoration(labelText: 'ユーザーID'),
+                decoration: InputDecoration(labelText: 'ユーザーID'),
                 onChanged: (String value) {
-                  userid=value;
+                  userid = value;
                 },
               ),
               // メールアドレス入力
@@ -134,9 +155,9 @@ class RegisterPage extends StatelessWidget {
                 style: const TextStyle(
                   color: Colors.white,
                 ),
-                decoration: const InputDecoration(labelText: 'メールアドレス'),
+                decoration: InputDecoration(labelText: 'メールアドレス'),
                 onChanged: (String value) {
-                  email=value;
+                  email = value;
                 },
               ),
               // パスワード入力
@@ -144,18 +165,18 @@ class RegisterPage extends StatelessWidget {
                 style: const TextStyle(
                   color: Colors.white,
                 ),
-                decoration: const InputDecoration(labelText: 'パスワード'),
+                decoration: InputDecoration(labelText: 'パスワード'),
                 obscureText: true,
                 onChanged: (String value) {
-                  password=value;
+                  password = value;
                 },
               ),
               Container(
-                padding: const EdgeInsets.all(8),
+                padding: EdgeInsets.all(8),
                 // メッセージ表示
                 child: Text(infoText),
               ),
-              SizedBox(
+              Container(
                 width: double.infinity,
                 // ユーザー登録ボタン
                 child: ElevatedButton(
@@ -163,12 +184,13 @@ class RegisterPage extends StatelessWidget {
                     backgroundColor: Colors.blue,
                     foregroundColor: Colors.white,
                   ),
-                  child: const Text('登録'),
+                  child: Text('登録'),
                   onPressed: () async {
                     try {
                       // メール/パスワードでユーザー登録
                       final FirebaseAuth auth = FirebaseAuth.instance;
-                      UserCredential result = await auth.createUserWithEmailAndPassword(
+                      UserCredential result =
+                          await auth.createUserWithEmailAndPassword(
                         email: email,
                         password: password,
                       );
@@ -183,7 +205,7 @@ class RegisterPage extends StatelessWidget {
                       // チャット画面に遷移＋ログイン画面を破棄
                       await Navigator.of(context).pushReplacement(
                         MaterialPageRoute(builder: (context) {
-                          return UI(const TimelinePage());
+                          return UI(TimelinePage());
                         }),
                       );
                     } catch (e) {
@@ -209,8 +231,6 @@ class LoginPage extends StatelessWidget {
   String email = '';
   String password = '';
 
-  LoginPage({super.key});
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -233,28 +253,30 @@ class LoginPage extends StatelessWidget {
                 style: const TextStyle(
                   color: Colors.white,
                 ),
-                decoration: const InputDecoration(labelText: 'メールアドレス'),
+                decoration: InputDecoration(labelText: 'メールアドレス'),
                 onChanged: (String value) {
-                  email=value;
+                  email = value;
                 },
+                //initialValue: "reviewsns1118@gmail.com",
               ),
               // パスワード入力
               TextFormField(
                 style: const TextStyle(
                   color: Colors.white,
                 ),
-                decoration: const InputDecoration(labelText: 'パスワード'),
+                decoration: InputDecoration(labelText: 'パスワード'),
                 obscureText: true,
                 onChanged: (String value) {
-                  password=value;
+                  password = value;
                 },
+                //initialValue: "Reiji_saikou",
               ),
               Container(
-                padding: const EdgeInsets.all(8),
+                padding: EdgeInsets.all(8),
                 // メッセージ表示
                 child: Text(infoText),
               ),
-              SizedBox(
+              Container(
                 width: double.infinity,
                 // ログイン登録ボタン
                 child: ElevatedButton(
@@ -262,7 +284,7 @@ class LoginPage extends StatelessWidget {
                     backgroundColor: Colors.blue,
                     foregroundColor: Colors.white,
                   ),
-                  child: const Text('ログイン'),
+                  child: Text('ログイン'),
                   onPressed: () async {
                     try {
                       // メール/パスワードでログイン
@@ -275,7 +297,7 @@ class LoginPage extends StatelessWidget {
                       // チャット画面に遷移＋ログイン画面を破棄
                       await Navigator.of(context).pushReplacement(
                         MaterialPageRoute(builder: (context) {
-                          return UI(const TimelinePage());
+                          return UI(TimelinePage());
                         }),
                       );
                     } catch (e) {

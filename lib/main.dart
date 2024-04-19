@@ -7,6 +7,7 @@ import 'UI.dart';
 import 'login.dart';
 import 'firebase_options.dart';
 
+final RouteObserver<ModalRoute> routeObserver = RouteObserver<ModalRoute>();
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
@@ -14,7 +15,7 @@ Future<void> main() async {
   );
 
   runApp(
-    const ProviderScope(
+    ProviderScope(
       child: MyApp(),
     ),
   );
@@ -41,7 +42,7 @@ class MyApp extends StatelessWidget {
               return UI(const TimelinePage());
             }
             // User が null である、つまり未サインインのサインイン画面へ
-            return const StartPage();
+            return StartPage();
           },
         ),
       );
