@@ -19,16 +19,28 @@ class PostPage extends ConsumerWidget {
         children: [
           Padding(
             padding: EdgeInsets.symmetric(
-              vertical: 12,
-              horizontal: 36,
+              vertical: 5,
+              horizontal: 10,
             ),
             child: TextField(
               style: TextStyle(
                 fontSize: 18,
                 color: Colors.white,
               ),
-              decoration:
-                  InputDecoration(fillColor: Colors.white, hintText: '作品を検索'),
+              decoration: InputDecoration(
+                hintText: '作品を検索',
+                hintStyle: TextStyle(color: Colors.white),
+                border: OutlineInputBorder(
+                  borderSide: BorderSide(color: Colors.white),
+                ),
+                enabledBorder: OutlineInputBorder(
+                  // 非フォーカス時の枠線のスタイルを指定
+                  borderSide: BorderSide(color: Colors.white),
+                ),
+              ),
+              onChanged: (query) {
+                searchState.searchWhere(query, "works", "titleOption");
+              },
               onSubmitted: (query) {
                 searchState.searchWhere(query, "works", "titleOption");
               },
