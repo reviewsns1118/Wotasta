@@ -23,28 +23,32 @@ class PostPage extends ConsumerWidget {
               horizontal: 10,
             ),
             child: TextField(
-              style: TextStyle(
-                fontSize: 18,
-                color: Colors.white,
-              ),
-              decoration: InputDecoration(
-                hintText: '作品を検索',
-                hintStyle: TextStyle(color: Colors.white),
-                border: OutlineInputBorder(
-                  borderSide: BorderSide(color: Colors.white),
+                style: TextStyle(
+                  fontSize: 18,
+                  color: Colors.white,
                 ),
-                enabledBorder: OutlineInputBorder(
-                  // 非フォーカス時の枠線のスタイルを指定
-                  borderSide: BorderSide(color: Colors.white),
+                decoration: InputDecoration(
+                  hintText: '作品を検索',
+                  hintStyle: TextStyle(color: Colors.white),
+                  border: OutlineInputBorder(
+                    borderSide: BorderSide(color: Colors.white),
+                  ),
+                  enabledBorder: OutlineInputBorder(
+                    // 非フォーカス時の枠線のスタイルを指定
+                    borderSide: BorderSide(color: Colors.white),
+                  ),
                 ),
-              ),
-              onChanged: (query) {
-                searchState.searchWhere(query, "works", "titleOption");
-              },
-              onSubmitted: (query) {
-                searchState.searchWhere(query, "works", "titleOption");
-              },
-            ),
+                onChanged: (query) {
+                  if (query.isEmpty) {
+                    searchState.searchWhere(" ", "works", "titleOption");
+                  } else {
+                    searchState.searchWhere(query, "works", "titleOption");
+                  }
+                }),
+          ),
+          Text(
+            "${result.length}件の作品",
+            style: TextStyle(color: Colors.white),
           ),
           Expanded(
             child: ListView.builder(
